@@ -1,5 +1,5 @@
 /*
- * Un avió es defineix pel seu codi, fabricant, model, capacitat i un vector amb 
+ * Un avió es defineix pel seu codi, fabricant, model, capacitat i un vector amb
  * les seves classes.
  */
 package components;
@@ -16,7 +16,7 @@ public class Avio implements Component{
     private String fabricant;
     private String model;
     private int capacitat;
-    private Classe[] classes;
+    private ArrayList<Classes> classes;
     private int posicioClasses; //Atribut que controla la primera posició vuida del vector
 
     /*
@@ -32,7 +32,7 @@ public class Avio implements Component{
         this.fabricant = fabricant;
         this.model = model;
         this.capacitat = capacitat;
-        classes = new Classe[4];
+        classes = new ArrayList();
         posicioClasses = 0;
     }
 
@@ -71,11 +71,11 @@ public class Avio implements Component{
         this.capacitat = capacitat;
     }
 
-    public Classe[] getClasses() {
+    public ArrayList getClasses() {
         return classes;
     }
 
-    public void setClasses(Classe[] classes) {
+    public void setClasses(ArrayList classes) {
         this.classes = classes;
     }
 
@@ -93,7 +93,7 @@ public class Avio implements Component{
     Accions:
     - Demanar a l'usuari les dades per consola per crear un nou avió.
     Les dades a demanar són les que necessita el constructor.
-    - També heu de tenir en compte que el fabricant o model, no tenen perquè estar 
+    - També heu de tenir en compte que el fabricant o model, no tenen perquè estar
     formats per una única paraula, per exemple, Airbus Company o Boing 777
     Retorn: El nou avió.
      */
@@ -124,7 +124,7 @@ public class Avio implements Component{
      Retorn: cap
      */
     public void modificarComponent() {
-        
+
         System.out.println("\nEl codi de l'avió és: "+codi);
         codi = String.valueOf(demanarDades("\nQuin és el nou Codi de l'avió?",2));
         demanarDades("",4); //Netejar buffer
@@ -147,14 +147,14 @@ public class Avio implements Component{
     /*
      Paràmetres: cap
      Accions:
-     - Afegeix una nova classe al vector de classes de l'avió actual si aquesta encara 
-     no s'ha afegit. S'ha de comprovar si s'ha afegit fent servir el mètode pertinent 
+     - Afegeix una nova classe al vector de classes de l'avió actual si aquesta encara
+     no s'ha afegit. S'ha de comprovar si s'ha afegit fent servir el mètode pertinent
      d'aquesta classe, i actualitzar la posició del vector de classes.
      - Abans d'afegir la classe, també heu de comprovar que la seva capacitat sumada
      a la capacitat de les altres classes de l'avió, no superi la capacitat total
      de l'avió.
-     - Si l'ingredient ja s'havia afegit o bé la seva capacitat sumada a les capacitats 
-     de les altres classes supera la capacitat total de l'avió, no s'afegirà de nou i 
+     - Si l'ingredient ja s'havia afegit o bé la seva capacitat sumada a les capacitats
+     de les altres classes supera la capacitat total de l'avió, no s'afegirà de nou i
      li mostrarem a l'usuari el missatge "\nLa classe no s'ha pogut afegir".
      Retorn: cap
      */
@@ -162,19 +162,17 @@ public class Avio implements Component{
 
         int capacitatClasses = 0;
 
-        Classe classe = Classe.novaClasse();
+        Classes classe = Classes.novaClasse();
 
         if (seleccionarClasse(classe.getNom()) == -1) { //La classe no existeix
 
-            for (int i = 0; i < posicioClasses; i++) {
-                capacitatClasses += classes[i].getCapacitat();
+            for (int i = 0; i < classes.size(); i++) {
+                capacitatClasses += classes.get(i).getCapacitat();
             }
 
             if (capacitatClasses + classe.getCapacitat() <= capacitat) {
-                classes[posicioClasses] = classe;
+                classes.add(classe);
             }
-
-            posicioClasses++;
 
         } else if (seleccionarClasse(classe.getNom()) != -1 || capacitatClasses + classe.getCapacitat() > capacitat) {
             System.out.println("\nLa classe no s'ha pogut afegir");
@@ -187,8 +185,8 @@ public class Avio implements Component{
         boolean trobat = false;
         int pos = -1;
 
-        for (int i = 0; i < posicioClasses && !trobat; i++) {
-            if (classes[i].getNom().equals(nom)) {
+        for (int i = 0; i < classes.size() && !trobat; i++) {
+            if (classes.get(i).getNom().equals(nom)) {
                 pos = i;
                 trobat = true;
             }
@@ -196,5 +194,4 @@ public class Avio implements Component{
 
         return pos;
     }
-
 }
