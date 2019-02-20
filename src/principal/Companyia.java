@@ -1,5 +1,5 @@
 /*
- * Classe que defineix una companyia. Una companyia es defineix per un codi i un 
+ * Classe que defineix una companyia. Una companyia es defineix per un codi i un
  * nom. A més, contindrà vectors amb avions, rutes nacionals, rutes internacionals,
  * rutes intercontinentals, rutes transocèaniques, tripulants de cabina, TCPs i vols.
  */
@@ -16,6 +16,7 @@ import components.Tripulant;
 import components.TripulantCabina;
 import java.text.ParseException;
 
+
 /**
  *
  * @author root
@@ -25,7 +26,7 @@ public class Companyia implements Component {
     private int codi;
     private static int properCodi = 1; //El proper codi a assignar
     private String nom;
-    private Component[] components;
+    private ArrayList<Component> components;
     private int posicioComponents; //Possició actual buida del vector components
 
     /*
@@ -35,19 +36,21 @@ public class Companyia implements Component {
         codi = properCodi;
         properCodi++;
         this.nom = nom;
-        components = new Component[2945];
+        components = new ArrayList();
+        //components = new Component[2945];
         posicioComponents = 0;
     }
 
     public Companyia(int codi, String nom) {
         this.codi = codi;
         this.nom = nom;
-        components = new Component[2945];
+        components = new ArrayList();
+        //components = new Component[2945];
         posicioComponents = 0;
     }
 
     /*
-     Mètodes accessors    
+     Mètodes accessors
      */
     public int getCodi() {
         return codi;
@@ -73,11 +76,11 @@ public class Companyia implements Component {
         this.nom = nom;
     }
 
-    public Component[] getComponents() {
+    public ArrayList getComponents() {
         return components;
     }
 
-    public void setComponents(Component[] components) {
+    public void setComponents(ArrayList components) {
         this.components = components;
     }
 
@@ -111,7 +114,7 @@ public class Companyia implements Component {
      Accions:
      - Demanar a l'usuari que introdueixi les noves dades de l'objecte actual
      i modificar els atributs corresponents d'aquest objecte. En aquest cas
-     no es pot modificar el contingut dels vectors, només el de l'atribut nom. 
+     no es pot modificar el contingut dels vectors, només el de l'atribut nom.
      Evidentment, tampoc podeu modificar el codi.
      - Li heu de mostrar a l'usuari els valor actual del nom de l'objecte
      actual, abans de modificar-lo.
@@ -139,8 +142,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(1, avio.getCodi()) == -1) {
-            components[posicioComponents] = avio;
-            posicioComponents++;
+            components.add(avio);
         } else {
             System.out.println("\nAquest avió ja existeix");
         }
@@ -157,8 +159,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(2, ruta.getCodi()) == -1) {
-            components[posicioComponents] = ruta;
-            posicioComponents++;
+            components.add(ruta);
         } else {
             System.out.println("\nAquesta ruta ja existeix");
         }
@@ -175,8 +176,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(2, ruta.getCodi()) == -1) {
-            components[posicioComponents] = ruta;
-            posicioComponents++;
+            components.add(ruta);
         } else {
             System.out.println("\nAquesta ruta ja existeix");
         }
@@ -193,8 +193,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(2, ruta.getCodi()) == -1) {
-            components[posicioComponents] = ruta;
-            posicioComponents++;
+            components.add(ruta);
         } else {
             System.out.println("\nAquesta ruta ja existeix");
         }
@@ -211,8 +210,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(2, ruta.getCodi()) == -1) {
-            components[posicioComponents] = ruta;
-            posicioComponents++;
+            components.add(ruta);
         } else {
             System.out.println("\nAquesta ruta ja existeix");
         }
@@ -229,8 +227,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(3, tripulant.getPassaport()) == -1) {
-            components[posicioComponents] = tripulant;
-            posicioComponents++;
+            components.add(tripulant);
         } else {
             System.out.println("\nAquest tripulant ja existeix");
         }
@@ -247,8 +244,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(3, tripulant.getPassaport()) == -1) {
-            components[posicioComponents] = tripulant;
-            posicioComponents++;
+            components.add(tripulant);
         } else {
             System.out.println("\nAquest tripulant ja existeix");
         }
@@ -265,8 +261,7 @@ public class Companyia implements Component {
         }
 
         if (seleccionarComponent(4, vol.getCodi()) == -1) {
-            components[posicioComponents] = vol;
-            posicioComponents++;
+            components.add(vol);
         } else {
             System.out.println("\nAquest vol ja existeix");
         }
@@ -296,13 +291,13 @@ public class Companyia implements Component {
 
         for (int i = 0; i < posicioComponents; i++) {
 
-            if (tipus == 1 && components[i] instanceof Avio && ((Avio) components[i]).getCodi().equals(id)) {
+            if (tipus == 1 && components.get(i) instanceof Avio && ((Avio) components.get(i)).getCodi().equals(id)) {
                 return i;
-            } else if (tipus == 2 && components[i] instanceof Ruta && ((Ruta) components[i]).getCodi().equals(id)) {
+            } else if (tipus == 2 && components.get(i) instanceof Ruta && ((Ruta) components.get(i)).getCodi().equals(id)) {
                 return i;
-            } else if (tipus == 3 && components[i] instanceof Tripulant && ((Tripulant) components[i]).getPassaport().equals(id)) {
+            } else if (tipus == 3 && components.get(i) instanceof Tripulant && ((Tripulant) components.get(i)).getPassaport().equals(id)) {
                 return i;
-            } else if (tipus == 4 && components[i] instanceof Vol && ((Vol) components[i]).getCodi().equals(id)) {
+            } else if (tipus == 4 && components.get(i) instanceof Vol && ((Vol) components.get(i)).getCodi().equals(id)) {
                 return i;
             }
         }
