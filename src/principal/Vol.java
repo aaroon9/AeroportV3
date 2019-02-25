@@ -1,10 +1,12 @@
 /*
- * Un vol es defineix pel seu codi, ruta, avio, un vector amb els seus tripulants 
+ * Un vol es defineix pel seu codi, ruta, avio, un vector amb els seus tripulants
  * (tripulació), data de sortida, data d’arribada, hora de sortida, hora d’arribada
  * i durada.
  */
 package principal;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import components.Avio;
 import components.Ruta;
 import components.TCP;
@@ -24,8 +26,9 @@ public class Vol implements Component {
     private String codi;
     private Ruta ruta;
     private Avio avio;
-    private Tripulant[] tripulacio;
-    private int posicioTripulacio;
+    //private Tripulant[] tripulacio;
+    private HashMap<String,Tripulant> tripulacio;
+    //private int posicioTripulacio;
     private Date dataSortida;
     private Date dataArribada;
     private LocalTime horaSortida;
@@ -44,7 +47,8 @@ public class Vol implements Component {
         this.dataArribada = dataArribada;
         this.horaSortida = horaSortida;
         this.horaArribada = horaArribada;
-        tripulacio = new Tripulant[32];
+        //tripulacio = new Tripulant[32];
+        tripulants=new HashMap<String,Tripulant>();
         posicioTripulacio = 0;
         cap=null;
         calcularDurada();
@@ -75,22 +79,6 @@ public class Vol implements Component {
 
     public void setAvio(Avio avio) {
         this.avio = avio;
-    }
-
-    public Tripulant[] getTripulacio() {
-        return tripulacio;
-    }
-
-    public void setTripulacio(Tripulant[] tripulacio) {
-        this.tripulacio = tripulacio;
-    }
-
-    public int getPosicioTripulacio() {
-        return posicioTripulacio;
-    }
-
-    public void setPosicioTripulacio(int posicioTripulacio) {
-        this.posicioTripulacio = posicioTripulacio;
     }
 
     public Date getDataSortida() {
@@ -139,8 +127,8 @@ public class Vol implements Component {
 
     public void setCap(TCP cap) {
         this.cap = cap;
-    } 
-    
+    }
+
 
     /*
     Paràmetres: cap
@@ -237,17 +225,20 @@ public class Vol implements Component {
     }
 
     public void afegirTripulant(Tripulant tripulant) {
-        tripulacio[posicioTripulacio] = tripulant;
-        posicioTripulacio++;
-        
+        if(!tripulacio.containsKey(tripulant.getPassaport())) {
+            tripulacio.put(tripulant.getPassaport(),tripulant);
+        }else{
+            System.out.println("El tripulant introduit ja existeix.");
+        }
+
         if(tripulant instanceof TCP){
             if(cap==null){
                 if(String.valueOf(demanarDades("\nVols que el tripulant afegit sigui cap de cabina?: S-Si o N-No", 2)).equals("S")){
-                    
+
                 }
             }
         }
-        
+
     }
 
     public void mostrarComponent() {
@@ -268,6 +259,17 @@ public class Vol implements Component {
         System.out.println("\nHores d'arribada: " + horaArribada.getHour() + ":" + horaArribada.getMinute());
 
         System.out.println("\nLa tripulació de cabina és:");
+
+        Set tripulacions = tripulacio.keySet();
+        Iterator<String> passaport = tripulacions.iterator();
+
+        while(passaport.hasNext()){
+          if () {
+
+          }
+        }
+
+
         for (int i = 0; i < posicioTripulacio; i++) {
             if (tripulacio[i] != null && tripulacio[i] instanceof TripulantCabina) {
                 tripulacio[i].mostrarComponent();
