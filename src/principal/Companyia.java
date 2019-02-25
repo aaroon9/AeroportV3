@@ -310,12 +310,12 @@ public class Companyia implements Component {
 
         if (pos >= 0) {
 
-            volSel = (Vol) getComponents()[pos];
+            volSel = (Vol) getComponents().get(pos);
 
             pos = seleccionarComponent(1, null);
 
             if (pos >= 0) {
-                volSel.setAvio((Avio) getComponents()[pos]);
+                volSel.setAvio((Avio) getComponents().get(pos));
             } else {
                 System.out.println("\nNo existeix aquest avió");
             }
@@ -331,12 +331,12 @@ public class Companyia implements Component {
 
         if (pos >= 0) {
 
-            volSel = (Vol) getComponents()[pos];
+            volSel = (Vol) getComponents().get(pos);
 
             pos = seleccionarComponent(3, null);
 
-            if (pos >= 0 && ((tipus == 6 && getComponents()[pos] instanceof TripulantCabina) || (tipus == 7 && getComponents()[pos] instanceof TCP))) {
-                volSel.afegirTripulant((Tripulant) getComponents()[pos]);
+            if (pos >= 0 && ((tipus == 6 && getComponents().get(pos) instanceof TripulantCabina) || (tipus == 7 && getComponents().gte(pos) instanceof TCP))) {
+                volSel.afegirTripulant((Tripulant) getComponents().get(pos));
             } else {
                 System.out.println("\nNo existeix aquest tripulant");
             }
@@ -352,12 +352,12 @@ public class Companyia implements Component {
 
         if (pos >= 0) {
 
-            volSel = (Vol) getComponents()[pos];
+            volSel = (Vol) getComponents().get(pos);
 
             pos = seleccionarComponent(2, null);
 
-            if (pos >= 0 && ((tipus == 2 && getComponents()[pos] instanceof RutaNacional) || (tipus == 3 && getComponents()[pos] instanceof RutaInternacional) || (tipus == 4 && getComponents()[pos] instanceof RutaIntercontinental) || (tipus == 5 && getComponents()[pos] instanceof RutaTransoceanica))) {
-                volSel.setRuta((Ruta) getComponents()[pos]);
+            if (pos >= 0 && ((tipus == 2 && getComponents().get(pos) instanceof RutaNacional) || (tipus == 3 && getComponents().get(pos) instanceof RutaInternacional) || (tipus == 4 && getComponents().get(pos) instanceof RutaIntercontinental) || (tipus == 5 && getComponents().get(pos) instanceof RutaTransoceanica))) {
+                volSel.setRuta((Ruta) getComponents().get(pos));
             } else {
                 System.out.println("\nNo existeix aquesta ruta");
             }
