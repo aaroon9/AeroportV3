@@ -1,5 +1,5 @@
 /*
- * Un vol es defineix pel seu codi, ruta, avio, un vector amb els seus tripulants 
+ * Un vol es defineix pel seu codi, ruta, avio, un vector amb els seus tripulants
  * (tripulació), data de sortida, data d’arribada, hora de sortida, hora d’arribada
  * i durada.
  */
@@ -58,7 +58,11 @@ public class Vol implements Component {
     }
 
     public void setCodi(String codi) {
+      if (comprovarCodiVol(codi)) {
         this.codi = codi;
+      } else {
+        throw new GestioVolsExcepcio("4");
+      }
     }
 
     public Ruta getRuta() {
@@ -139,8 +143,8 @@ public class Vol implements Component {
 
     public void setCap(TCP cap) {
         this.cap = cap;
-    } 
-    
+    }
+
 
     /*
     Paràmetres: cap
@@ -239,15 +243,15 @@ public class Vol implements Component {
     public void afegirTripulant(Tripulant tripulant) {
         tripulacio[posicioTripulacio] = tripulant;
         posicioTripulacio++;
-        
+
         if(tripulant instanceof TCP){
             if(cap==null){
                 if(String.valueOf(demanarDades("\nVols que el tripulant afegit sigui cap de cabina?: S-Si o N-No", 2)).equals("S")){
-                    
+
                 }
             }
         }
-        
+
     }
 
     public void mostrarComponent() {

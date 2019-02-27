@@ -31,7 +31,11 @@ public abstract class Ruta implements Component {
     }
 
     public void setCodi(String codi) {
+      if (comprovarCodiRuta(codi)) {
         this.codi = codi;
+      } else {
+        throw new GestioVolsExcepcio("3");
+      }
     }
 
     public String getAeroportOri() {
@@ -72,7 +76,6 @@ public abstract class Ruta implements Component {
 
         System.out.println("\nEl codi de la ruta és:" + codi);
         codi = String.valueOf(demanarDades("\nQuin és el nou codi de la ruta?",2));
-        comprovarCodiRuta(codi);
         demanarDades("",4); //Netejar buffer
         System.out.println("\nL'aeroport d'origen de la ruta és:" + aeroportOri);
         aeroportOri = String.valueOf(demanarDades("\nQuin és el nou l'aeroport d'origen de la ruta?",4));
