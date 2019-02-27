@@ -229,27 +229,18 @@ public class Vol implements Component {
     }
 
     public void afegirTripulant(Tripulant tripulant) {
-<<<<<<< HEAD
-        tripulacio[posicioTripulacio] = tripulant;
-        posicioTripulacio++;
-=======
         if(!tripulacio.containsKey(tripulant.getPassaport())) {
             tripulacio.put(tripulant.getPassaport(),tripulant);
         }else{
             System.out.println("El tripulant introduit ja existeix.");
         }
->>>>>>> 0ae4cfecef78701414f4c8a64d99231b09e05103
 
         if(tripulant instanceof TCP){
             if(cap==null){
                 if(String.valueOf(demanarDades("\nVols que el tripulant afegit sigui cap de cabina?: S-Si o N-No", 2)).equals("S")){
-<<<<<<< HEAD
-
-=======
                   cap.setRang(null);
                   cap = (TCP) tripulacio.getPassaport();
                   cap.setRang("cap");
->>>>>>> 0ae4cfecef78701414f4c8a64d99231b09e05103
                 }
             }
         }
