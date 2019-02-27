@@ -234,7 +234,9 @@ public class Vol implements Component {
         if(tripulant instanceof TCP){
             if(cap==null){
                 if(String.valueOf(demanarDades("\nVols que el tripulant afegit sigui cap de cabina?: S-Si o N-No", 2)).equals("S")){
-
+                  cap.setRang(null);
+                  cap = (TCP) tripulacio.getPassaport();
+                  cap.setRang("cap");
                 }
             }
         }
@@ -264,24 +266,33 @@ public class Vol implements Component {
         Iterator<String> passaport = tripulacions.iterator();
 
         while(passaport.hasNext()){
-          if () {
-
+          Tripulant unTripulant=passaport.next();
+          if (unTripulant instanceof TripulantCabina) {
+              system.out.println(unTripulant.mostrarComponent()); //REVISARR!!
           }
         }
 
 
-        for (int i = 0; i < posicioTripulacio; i++) {
+        /*for (int i = 0; i < posicioTripulacio; i++) {
             if (tripulacio[i] != null && tripulacio[i] instanceof TripulantCabina) {
                 tripulacio[i].mostrarComponent();
             }
-        }
+        }*/
 
         System.out.println("\nLa tripulació de cabina de passatgers és:");
-        for (int i = 0; i < posicioTripulacio; i++) {
+        while(passaport.hasNext()){
+          Tripulant unTripulant=passaport.next();
+          if (unTripulant instanceof TCP) {
+              system.out.println(unTripulant.mostrarComponent()); //REVISARR!!
+          }
+        }
+
+
+        /*for (int i = 0; i < posicioTripulacio; i++) {
             if (tripulacio[i] != null && tripulacio[i] instanceof TCP) {
                 tripulacio[i].mostrarComponent();
             }
-        }
+        }*/
 
         System.out.println("\nDurada: " + durada);
     }
