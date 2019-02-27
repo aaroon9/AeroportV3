@@ -5,6 +5,8 @@
  */
 package principal;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import components.Avio;
 import components.Ruta;
 import components.TCP;
@@ -24,8 +26,9 @@ public class Vol implements Component {
     private String codi;
     private Ruta ruta;
     private Avio avio;
-    private Tripulant[] tripulacio;
-    private int posicioTripulacio;
+    //private Tripulant[] tripulacio;
+    private HashMap<String,Tripulant> tripulacio;
+    //private int posicioTripulacio;
     private Date dataSortida;
     private Date dataArribada;
     private LocalTime horaSortida;
@@ -44,7 +47,8 @@ public class Vol implements Component {
         this.dataArribada = dataArribada;
         this.horaSortida = horaSortida;
         this.horaArribada = horaArribada;
-        tripulacio = new Tripulant[32];
+        //tripulacio = new Tripulant[32];
+        tripulants=new HashMap<String,Tripulant>();
         posicioTripulacio = 0;
         cap=null;
         calcularDurada();
@@ -79,22 +83,6 @@ public class Vol implements Component {
 
     public void setAvio(Avio avio) {
         this.avio = avio;
-    }
-
-    public Tripulant[] getTripulacio() {
-        return tripulacio;
-    }
-
-    public void setTripulacio(Tripulant[] tripulacio) {
-        this.tripulacio = tripulacio;
-    }
-
-    public int getPosicioTripulacio() {
-        return posicioTripulacio;
-    }
-
-    public void setPosicioTripulacio(int posicioTripulacio) {
-        this.posicioTripulacio = posicioTripulacio;
     }
 
     public Date getDataSortida() {
@@ -241,13 +229,27 @@ public class Vol implements Component {
     }
 
     public void afegirTripulant(Tripulant tripulant) {
+<<<<<<< HEAD
         tripulacio[posicioTripulacio] = tripulant;
         posicioTripulacio++;
+=======
+        if(!tripulacio.containsKey(tripulant.getPassaport())) {
+            tripulacio.put(tripulant.getPassaport(),tripulant);
+        }else{
+            System.out.println("El tripulant introduit ja existeix.");
+        }
+>>>>>>> 0ae4cfecef78701414f4c8a64d99231b09e05103
 
         if(tripulant instanceof TCP){
             if(cap==null){
                 if(String.valueOf(demanarDades("\nVols que el tripulant afegit sigui cap de cabina?: S-Si o N-No", 2)).equals("S")){
+<<<<<<< HEAD
 
+=======
+                  cap.setRang(null);
+                  cap = (TCP) tripulacio.getPassaport();
+                  cap.setRang("cap");
+>>>>>>> 0ae4cfecef78701414f4c8a64d99231b09e05103
                 }
             }
         }
@@ -272,18 +274,38 @@ public class Vol implements Component {
         System.out.println("\nHores d'arribada: " + horaArribada.getHour() + ":" + horaArribada.getMinute());
 
         System.out.println("\nLa tripulació de cabina és:");
-        for (int i = 0; i < posicioTripulacio; i++) {
+
+        Set tripulacions = tripulacio.keySet();
+        Iterator<String> passaport = tripulacions.iterator();
+
+        while(passaport.hasNext()){
+          Tripulant unTripulant=passaport.next();
+          if (unTripulant instanceof TripulantCabina) {
+              system.out.println(unTripulant.mostrarComponent()); //REVISARR!!
+          }
+        }
+
+
+        /*for (int i = 0; i < posicioTripulacio; i++) {
             if (tripulacio[i] != null && tripulacio[i] instanceof TripulantCabina) {
                 tripulacio[i].mostrarComponent();
             }
-        }
+        }*/
 
         System.out.println("\nLa tripulació de cabina de passatgers és:");
-        for (int i = 0; i < posicioTripulacio; i++) {
+        while(passaport.hasNext()){
+          Tripulant unTripulant=passaport.next();
+          if (unTripulant instanceof TCP) {
+              system.out.println(unTripulant.mostrarComponent()); //REVISARR!!
+          }
+        }
+
+
+        /*for (int i = 0; i < posicioTripulacio; i++) {
             if (tripulacio[i] != null && tripulacio[i] instanceof TCP) {
                 tripulacio[i].mostrarComponent();
             }
-        }
+        }*/
 
         System.out.println("\nDurada: " + durada);
     }
