@@ -43,38 +43,62 @@ public class GestioVolsExcepcio {
     /*
     Paràmetres: codi d'un avió
     Accions:
-    - Heu de comprovar si el format del codi de l'avió passat per paràmetre és 
+    - Heu de comprovar si el format del codi de l'avió passat per paràmetre és
     correcte. Recordeu que el codi de l'avió ha d'estar format per 3 dígits.
     - Per comprovar-ho, heu de fer servir expressions regulars.
     Retorn: verdader si el format és correcta, fals en cas contrari.
      */
     public static boolean comprovarCodiAvio(String codi) {
+      String regExp = "[0-9]{3}";
+      Pattern regla = Pattern.compile(regExp);
+      Matcher codiAvio = regla.matcher(codi);
+      if (codiAvio.find()) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     /*
     Paràmetres: codi d'una ruta
     Accions:
-    - Heu de comprovar si el format del codi de la ruta passat per paràmetre és 
+    - Heu de comprovar si el format del codi de la ruta passat per paràmetre és
     correcte. Recordeu que el codi d'una ruta ha d'estar format per 2 lletres
     seguides de 3 digits. Les lletres poden ser minúscules o majúscules.
     - Per comprovar-ho, heu de fer servir expressions regulars.
-    Retorn: verdader si el format és correcta, fals en cas contrari.
+    Retorn: verdader si el format és correcte, fals en cas contrari.
      */
     public static boolean comprovarCodiRuta(String codi) {
+      String regExp = "[a-zA-Z]{2}[0-9]{3}";
+      Pattern regla = Pattern.compile(regExp);
+      Matcher codiRuta = regla.matcher(codi);
+      if (codiRuta.find()) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     /*
     Paràmetres: codi d'un vol
     Accions:
-    - Heu de comprovar si el format del codi del vol passat per paràmetre és 
+    - Heu de comprovar si el format del codi del vol passat per paràmetre és
     correcte. Recordeu que el codi d'un vol ha d'estar format per 2 o 3 lletres
     seguides de 4 digits. Les lletres poden ser minúscules o majúscules.
     - Per comprovar-ho, heu de fer servir expressions regulars.
     Retorn: verdader si el format és correcta, fals en cas contrari.
      */
     public static boolean comprovarCodiVol(String codi) {
+      String regExp = "[a-zA-Z]{2,3}[0-9]{4}";
+      Pattern regla = Pattern.compile(regExp);
+      Matcher codiVol = regla.matcher(codi);
+      if (codiVol.find()) {
+        return true;
+      } else {
+        return false;
+      }
     }
-    
+
     /*
     Paràmetres: cap
     Accions:
@@ -83,6 +107,8 @@ public class GestioVolsExcepcio {
     Retorn: El codi i missatge d'una excepció.
      */
     public String getMessage(){
+      GestioVolsExcepcio(codiCausa);
+      String mis = "Codi = " + codiCausa + "\n Missatge: " + missatge;
     }
 
 }
