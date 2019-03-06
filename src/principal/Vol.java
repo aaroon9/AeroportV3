@@ -62,7 +62,11 @@ public class Vol implements Component {
     }
 
     public void setCodi(String codi) {
+      if (comprovarCodiVol(codi)) {
         this.codi = codi;
+      } else {
+        throw new GestioVolsExcepcio("4");
+      }
     }
 
     public Ruta getRuta() {

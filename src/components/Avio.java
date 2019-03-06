@@ -44,7 +44,11 @@ public class Avio implements Component{
     }
 
     public void setCodi(String codi) {
+      if (comprovarCodiAvio(codi)) {
         this.codi = codi;
+      } else {
+        throw new GestioVolsExcepcio("2");
+      }
     }
 
     public String getFabricant() {
@@ -101,19 +105,23 @@ public class Avio implements Component{
         String codi, fabricant, model;
         int capacitat;
 
-        System.out.println("\nCodi de l'avió:");
-        codi = DADES.next();
-        //aqui falta un try catch, controlar excepcio vamos
-        comprovarCodiAvio(codi);
-        DADES.nextLine(); //Neteja de buffer
-        System.out.println("\nFabricant de l'avió:");
-        fabricant = DADES.nextLine();
-        System.out.println("\nModel de l'avió:");
-        model = DADES.nextLine();
-        System.out.println("\nCapacitat de l'avió:");
-        capacitat = DADES.nextInt();
+        try {
+          System.out.println("\nCodi de l'avió:");
+          codi = DADES.next();
+          DADES.nextLine(); //Neteja de buffer
+          System.out.println("\nFabricant de l'avió:");
+          fabricant = DADES.nextLine();
+          System.out.println("\nModel de l'avió:");
+          model = DADES.nextLine();
+          System.out.println("\nCapacitat de l'avió:");
+          capacitat = DADES.nextInt();
 
-        return new Avio(codi, fabricant, model, capacitat);
+          return new Avio(codi, fabricant, model, capacitat);
+
+        } catch (GestioVolsExcepcio e) {
+
+        }
+
     }
 
     /*
@@ -129,7 +137,6 @@ public class Avio implements Component{
 
         System.out.println("\nEl codi de l'avió és: "+codi);
         codi = String.valueOf(demanarDades("\nQuin és el nou Codi de l'avió?",2));
-        comprovarCodiAvio(codi);
         demanarDades("",4); //Netejar buffer
         System.out.println("\nEl fabricant de l'avió és: "+ fabricant);
         fabricant = String.valueOf(demanarDades("\nQuin és el nou fabricant de l'avió?",4));
