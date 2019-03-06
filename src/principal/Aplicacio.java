@@ -192,9 +192,13 @@ public class Aplicacio {
                     break;
             }
         } while (opcio != 0);
+    }catch (InputMismatchException e){
+      throw GestioVolsExcepcio('1');
     }
+  }
 
     public static void menuComponents(int tipus) throws ParseException {
+      try{
         int opcio = 0;
 
         do {
@@ -334,10 +338,13 @@ public class Aplicacio {
                     break;
             }
         } while (opcio != 0);
+      }catch(InputMismatchException e){
+        throw GestioVolsExcepcio('1');
+      }
     }
 
     public static Integer selectCompanyia() {
-
+      try{
         System.out.println("\nCodi de la companyia?:");
         int codi = DADES.nextInt();
 
@@ -352,5 +359,8 @@ public class Aplicacio {
         }
 
         return pos;
+      }catch(InputMismatchException e){
+        throw GestioVolsExcepcio('1');
+      }
     }
 }
